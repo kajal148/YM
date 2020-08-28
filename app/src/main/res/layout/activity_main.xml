@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:scrollbars="none"
+    android:background="@color/colorAccent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:background="@drawable/round_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:text="Place"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edit_place"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:hint="Search Place"
+                android:ems="10"
+                android:padding="5dp"
+                android:inputType="text"
+                android:background="@drawable/edittext_border"/>
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.2"
+                android:layout_marginTop="10dp"
+                android:background="#fff"
+                android:padding="5dp"
+                android:src="@drawable/search_icon" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/text_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:text="Duration"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinner_days"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp" />
+
+            <Spinner
+                android:id="@+id/spinner_months"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_tripSubject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:text="Trip Subject"/>
+
+        <EditText
+            android:id="@+id/edit_tripSubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:lines="8"
+            android:layout_marginTop="10dp"
+            android:hint=""
+            android:maxLength="100"
+            android:background="@drawable/edittext_border"
+            android:maxLines="7"
+            android:minLines="4"
+            android:scrollbars="vertical"/>
+
+        <TextView
+            android:id="@+id/text_tripDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:text="Trip Description"/>
+
+        <EditText
+            android:id="@+id/edit_tripDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:lines="8"
+            android:layout_marginTop="10dp"
+            android:hint=""
+            android:background="@drawable/edittext_border"
+            android:maxLines="7"
+            android:minLines="4"
+            android:maxLength="150"
+            android:scrollbars="vertical"/>
+
+                         <!-- BROCHURE AND GALLERY -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/text_brochure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:text="Brochure"/>
+
+                <ImageView
+                    android:id="@+id/icon_brochure"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="2dp"
+                    android:layout_marginLeft="3dp"
+                    android:background="@drawable/add_icon" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/brochure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/text_gallery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:text="Gallery"/>
+
+                <ImageView
+                    android:id="@+id/icon_gallery"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="2dp"
+                    android:layout_marginLeft="3dp"
+                    android:background="@drawable/add_icon" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/gallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"/>
+        </LinearLayout>
+
+            <!-- ADDITIONAL SERVICES -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/text_additonal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"
+                android:text="Additional Services"/>
+
+            <ImageView
+                android:id="@+id/additional_addicon"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="2dp"
+                android:layout_marginLeft="3dp"
+                android:onClick="popUpService"
+                android:background="@drawable/add_icon" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/services_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"/>
+
+                            <!-- CATEGORY -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/text_catergory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"
+                android:text="Category"/>
+
+            <ImageView
+                android:id="@+id/category_addicon"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="2dp"
+                android:layout_marginLeft="3dp"
+                android:onClick="popUpCategory"
+                android:background="@drawable/add_icon" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/category_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SUBMIT"
+            android:textAllCaps="false"
+            android:layout_margin="10dp"
+            android:textColor="#fff"
+            android:letterSpacing="0.3"
+            android:background="@drawable/button_pressed"
+            />
+
+
+    </LinearLayout>
+
+
+
+
+</ScrollView>
