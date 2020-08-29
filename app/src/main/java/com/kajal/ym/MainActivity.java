@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-            //PLACE RECYCLE VIEW LIST
+            //Search PLACE RECYCLE VIEW LIST
 
         mRecyclerView = (RecyclerView) findViewById(R.id.result_list);
         mRecyclerView.setHasFixedSize(true);
