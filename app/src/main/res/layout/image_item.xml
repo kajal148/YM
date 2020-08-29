@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:background="#ffffff"
+android:layout_margin="3dp">
+
+<ImageView
+    android:id="@+id/image"
     android:layout_width="100dp"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp">
+    android:layout_height="100dp"
+    tools:srcCompat="@tools:sample/avatars"
+    android:padding="5dp"
+    android:scaleType="center"
+    android:layout_margin="2dp" />
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        tools:srcCompat="@tools:sample/avatars"
-        android:padding="5dp"
-        android:scaleType="center"
-        android:layout_margin="2dp" />
+<ImageButton
+    android:id="@+id/removeImage"
+    android:layout_width="15dp"
+    android:layout_height="15dp"
+    android:layout_alignTop="@+id/image"
+    android:layout_alignParentRight="true"
+    android:layout_gravity="bottom|end"
+    android:clickable="true"
+    android:focusable="true"
+    app:backgroundTint="#00FFFFFF"
+    app:srcCompat="@android:drawable/ic_delete" />
 
-</LinearLayout>
+</RelativeLayout>

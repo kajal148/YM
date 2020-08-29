@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -42,13 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
     Spinner days,nights;
     RecyclerView gallery,brochure;
-    List<Image> imageList;
     ImageView mGalleryClick, mBrochureClick;
     
     Dialog mDialog;
     EditText mEditField;
     String add_field;
-
+    List<Uri> imageList = new ArrayList<>();
     private static final int PICK_IMAGE = 100;
     Uri imageUri;
 
@@ -217,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
                 imgIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 imgIntent.setAction(Intent.ACTION_GET_CONTENT);
 
-                startActivityForResult(Intent.createChooser(imgIntent,"Select Photo"), 1);
+                startActivityForResult(Intent.createChooser(imgIntent,"Select Photo"), 5);
             }
         });
 
@@ -236,14 +237,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //for saving all the images
+      /*  //for saving all the images
         imageList = new ArrayList<>();
         imageList.add(new Image(R.drawable.ic_launcher_background));
         imageList.add(new Image(R.drawable.ic_launcher_background));
         imageList.add(new Image(R.drawable.ic_launcher_background));
         imageList.add(new Image(R.drawable.ic_launcher_background));
         imageList.add(new Image(R.drawable.ic_launcher_background));
-        imageList.add(new Image(R.drawable.ic_launcher_background));
+        imageList.add(new Image(R.drawable.ic_launcher_background));*/
 
         //use setOrientation(LinearLayoutManager.HORIZONTAL);
         LinearLayoutManager manager_brochure = new LinearLayoutManager(this);
@@ -258,8 +259,7 @@ public class MainActivity extends AppCompatActivity {
         AdapterClass b_adapter = new AdapterClass(this,imageList);
         brochure.setAdapter(b_adapter);
 
-        AdapterClass g_adapter = new AdapterClass(this,imageList);
-        gallery.setAdapter(g_adapter);
+        loadImageView(imageList);
 
                         //RECYCLE VIEW FOR ADDITIONAL SERVICES
         
@@ -292,6 +292,36 @@ public class MainActivity extends AppCompatActivity {
         ListAdapterClass category_adapter = new ListAdapterClass(this,mCategoryList);
         mCategoryRecyclerView.setAdapter(category_adapter);
         
+    }
+
+    protected void onActivityResult(int requestcode, int resultcode,
+                                    Intent imagereturnintent) {
+        super.onActivityResult(requestcode, resultcode, imagereturnintent);
+        switch (requestcode) {
+            case 5:
+                if (resultcode == RESULT_OK) {
+                    ClipData selectedImages = imagereturnintent.getClipData();
+                    if(selectedImages != null) {
+                        for(int count =0; count < selectedImages.getItemCount(); count++)
+                        imageList.add(selectedImages.getItemAt(count).getUri());
+                    } else if(imagereturnintent.getData() != null){
+                        imageList.add(imagereturnintent.getData());
+                    }
+                   loadImageView(imageList);
+                }
+                break;
+
+        }
+    }
+
+    public void removeImage(int position) {
+        imageList.remove(position);
+        loadImageView(imageList);
+    }
+
+    private void loadImageView(List<Uri> imageList) {
+        AdapterClass adapter = new AdapterClass(this,imageList);
+        gallery.setAdapter(adapter);
     }
 
     private void setAdapter(final String searchString) {
