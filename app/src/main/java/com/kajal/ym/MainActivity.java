@@ -110,13 +110,26 @@ public class MainActivity extends AppCompatActivity {
 
             //Search PLACE RECYCLE VIEW LIST
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.result_list);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        //mRecyclerView = (RecyclerView) findViewById(R.id.result_list);
+        //mRecyclerView.setHasFixedSize(true);
+        //mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+
+        mSearchField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //getting search place from SEARCHACTIVITY
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("place");
+        mSearchField.setText(name);
 
         //for search text change
-        mSearchField.addTextChangedListener(new TextWatcher() {
+        /*mSearchField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -124,7 +137,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                Intent intent = new Intent(MainActivity.this,SearchActivity.class);
+                startActivity(intent);
+                finish();
             }
 
             @Override
@@ -136,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // for search button click
         mSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        */
                 //SPINNER FOR DAYS AND NIGHT
 
         days = findViewById(R.id.spinner_days);
@@ -160,6 +174,11 @@ public class MainActivity extends AppCompatActivity {
         array_days.add("3");
         array_days.add("4");
         array_days.add("5");
+        array_days.add("6");
+        array_days.add("7");
+        array_days.add("8");
+        array_days.add("9");
+        array_days.add("10");
 
         ArrayAdapter<String> arrayAdapter_days = new ArrayAdapter(this, android.R.layout.simple_list_item_1, array_days);
         arrayAdapter_days.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -186,6 +205,11 @@ public class MainActivity extends AppCompatActivity {
         array_nights.add("3");
         array_nights.add("4");
         array_nights.add("5");
+        array_nights.add("6");
+        array_nights.add("7");
+        array_nights.add("8");
+        array_nights.add("9");
+        array_nights.add("10");
 
         ArrayAdapter<String> arrayAdapter_nights = new ArrayAdapter(this, android.R.layout.simple_list_item_1, array_nights);
         arrayAdapter_nights.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -232,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
                 imgIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 imgIntent.setAction(Intent.ACTION_GET_CONTENT);
 
-                startActivityForResult(Intent.createChooser(imgIntent,"Select Photo"), 1);
+                startActivityForResult(Intent.createChooser(imgIntent,"Select Photo"), 6);
             }
         });
 
@@ -324,7 +348,7 @@ public class MainActivity extends AppCompatActivity {
         gallery.setAdapter(adapter);
     }
 
-    private void setAdapter(final String searchString) {
+    /*private void setAdapter(final String searchString) {
         databaseReference.child("Locations").addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -361,7 +385,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
 
     public void popUpService(View v){
         final Button mButton;

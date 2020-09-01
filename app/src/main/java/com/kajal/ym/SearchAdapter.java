@@ -42,8 +42,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mSearchFeild.setText(name);
-                    mrecycleView.setVisibility(View.GONE);
+                    //mSearchFeild.setText(name);
+                    //mrecycleView.setVisibility(View.GONE);
+                    Intent intent = new Intent(context, MainActivity.class);
+                    intent.putExtra("place", name);
+                    context.startActivity(intent);
 
                 }
             });
