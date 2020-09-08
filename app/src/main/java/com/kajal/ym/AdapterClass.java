@@ -56,7 +56,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.MyViewHolder
         holder.removeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) context).removeImage(position);
+                ((MainActivity) context).removeImage(position,imageList);
             }
         });
 

@@ -1,8 +1,6 @@
 package com.kajal.ym;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,10 +9,8 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,15 +20,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     Dialog mDialog;
     EditText mEditField;
     String add_field;
-    List<Uri> imageList = new ArrayList<>();
+    List<Uri> galleryList = new ArrayList<>();
+    List<Uri> brochureList = new ArrayList<>();
     private static final int PICK_IMAGE = 100;
     Uri imageUri;
 
@@ -280,11 +273,6 @@ public class MainActivity extends AppCompatActivity {
         gallery.setLayoutManager(manager_gallery);
 
 
-        AdapterClass b_adapter = new AdapterClass(this,imageList);
-        brochure.setAdapter(b_adapter);
-
-        loadImageView(imageList);
-
                         //RECYCLE VIEW FOR ADDITIONAL SERVICES
         
 
@@ -327,26 +315,43 @@ public class MainActivity extends AppCompatActivity {
                     ClipData selectedImages = imagereturnintent.getClipData();
                     if(selectedImages != null) {
                         for(int count =0; count < selectedImages.getItemCount(); count++)
-                        imageList.add(selectedImages.getItemAt(count).getUri());
+                        galleryList.add(selectedImages.getItemAt(count).getUri());
                     } else if(imagereturnintent.getData() != null){
-                        imageList.add(imagereturnintent.getData());
+                        galleryList.add(imagereturnintent.getData());
                     }
-                   loadImageView(imageList);
+                   loadImageViewGallery(galleryList);
                 }
                 break;
-
+            case 6:
+                if(resultcode == RESULT_OK) {
+                    ClipData selectedImages = imagereturnintent.getClipData();
+                    if (selectedImages != null) {
+                        for (int count = 0; count < selectedImages.getItemCount(); count++)
+                            brochureList.add(selectedImages.getItemAt(count).getUri());
+                    } else if (imagereturnintent.getData() != null) {
+                        brochureList.add(imagereturnintent.getData());
+                    }
+                    loadImageViewBrochure(brochureList);
+                }
         }
     }
 
-    public void removeImage(int position) {
+    public void removeImage(int position,List<Uri> imageList) {
         imageList.remove(position);
-        loadImageView(imageList);
+        loadImageViewGallery(imageList);
     }
 
-    private void loadImageView(List<Uri> imageList) {
+    private void loadImageViewGallery(List<Uri> imageList) {
         AdapterClass adapter = new AdapterClass(this,imageList);
         gallery.setAdapter(adapter);
     }
+
+    private void loadImageViewBrochure(List<Uri> imageList) {
+        AdapterClass adapter = new AdapterClass(this,imageList);
+        brochure.setAdapter(adapter);
+    }
+
+
 
     /*private void setAdapter(final String searchString) {
         databaseReference.child("Locations").addListenerForSingleValueEvent(new ValueEventListener() {
