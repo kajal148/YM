@@ -75,22 +75,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
+            android:layout_margin="5dp"
             android:orientation="horizontal">
 
-            <Spinner
+            <AutoCompleteTextView
                 android:id="@+id/spinner_days"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:layout_margin="5dp" />
+                android:hint="Days.."
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                />
 
-            <Spinner
-                android:id="@+id/spinner_months"
+            <AutoCompleteTextView
+                android:id="@+id/spinner_nights"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
+                android:inputType="number"
                 android:layout_weight="1"
-                android:layout_margin="5dp"
+                android:hint="Nights.."
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 />
+
         </LinearLayout>
 
         <RelativeLayout

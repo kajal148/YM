@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,6 +15,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -34,7 +36,10 @@ public class MainActivity extends AppCompatActivity {
     TextView mCountTextView;
     EditText mCountEditText;
 
-    Spinner days,nights;
+    //Spinner days,nights;
+    String[] days ={"1","2","3","4","5","6","7","8","9","10"};
+    String[] nights ={"1","2","3","4","5","6","7","8","9","10"};
+
     RecyclerView gallery,brochure;
     ImageView mGalleryClick, mBrochureClick;
     
@@ -101,6 +106,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+                    //DAYS AND NIGHTS
+            ArrayAdapter<String> days_adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item,days);
+            AutoCompleteTextView days_act =  (AutoCompleteTextView)findViewById(R.id.spinner_days);
+            days_act.setThreshold(1);
+            days_act.setAdapter(days_adapter);
+            days_act.setTextColor(Color.BLACK);
+
+            ArrayAdapter<String> nights_adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item,nights);
+            AutoCompleteTextView nights_act =  (AutoCompleteTextView)findViewById(R.id.spinner_nights);
+            nights_act.setThreshold(1);
+            nights_act.setAdapter(nights_adapter);
+            nights_act.setTextColor(Color.BLACK);
+
             //Search PLACE RECYCLE VIEW LIST
 
         //mRecyclerView = (RecyclerView) findViewById(R.id.result_list);
@@ -157,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         */
                 //SPINNER FOR DAYS AND NIGHT
 
-        days = findViewById(R.id.spinner_days);
+        /*days = findViewById(R.id.spinner_days);
         nights = findViewById(R.id.spinner_months);
 
         List<String> array_days = new ArrayList<>();
@@ -220,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
-        });
+        });*/
 
 
                                                     // RECYCLE VIEW FOR GALLERY AND BROCHURE
@@ -329,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
                         for (int count = 0; count < selectedImages.getItemCount(); count++)
                             brochureList.add(selectedImages.getItemAt(count).getUri());
                     } else if (imagereturnintent.getData() != null) {
-                        brochureList.add(imagereturnintent.getData());
+                            brochureList.add(imagereturnintent.getData());
                     }
                     loadImageViewBrochure(brochureList);
                 }
