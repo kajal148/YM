@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Places> arrayList = new ArrayList<>();
     SearchAdapter searchAdapter;
 
+    public final int GALLERY_SELECTION_REQUEST=5;
+    public final int BROCHURE_SELECTION_REQUEST=6;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
 
         mSearchField = (EditText) findViewById(R.id.search_field);
         mSearchBtn = (ImageButton) findViewById(R.id.search_btn);
+
+        //getting search place from SEARCHACTIVITY
+        Intent intent = getIntent();
+        final String locationName = intent.getStringExtra("place");
+        mSearchField.setText(locationName);
 
         mCountEditText =  findViewById(R.id.edit_tripSubject);
         mCountTextView = findViewById(R.id.text_tripCounter);
@@ -126,21 +134,8 @@ public class MainActivity extends AppCompatActivity {
         //mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         //mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
-        mSearchField.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,SearchActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //getting search place from SEARCHACTIVITY
-        Intent intent = getIntent();
-        String name = intent.getStringExtra("place");
-        mSearchField.setText(name);
-
         //for search text change
-        /*mSearchField.addTextChangedListener(new TextWatcher() {
+        mSearchField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -148,99 +143,31 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Intent intent = new Intent(MainActivity.this,SearchActivity.class);
-                startActivity(intent);
-                finish();
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
 
-                if (!s.toString().isEmpty()){
-                    setAdapter(s.toString());
+                if (!s.toString().isEmpty() && s.toString().length()>=3 && !s.toString().equalsIgnoreCase(locationName)){
+                    Intent intent = new Intent(MainActivity.this,SearchActivity.class);
+                    intent.putExtra("searchTerm", s.toString());
+                    startActivity(intent);
                 }
             }
         });
-
-        mSearchBtn.setOnClickListener(new View.OnClickListener() {
+      /*  mSearchField.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                String s = mSearchField.getText().toString();
-                if (!s.toString().isEmpty()){
-                    setAdapter(s.toString());
-                }
-
-            }
-        });
-        */
-                //SPINNER FOR DAYS AND NIGHT
-
-        /*days = findViewById(R.id.spinner_days);
-        nights = findViewById(R.id.spinner_months);
-
-        List<String> array_days = new ArrayList<>();
-        array_days.add(0,"Days");
-        array_days.add("1");
-        array_days.add("2");
-        array_days.add("3");
-        array_days.add("4");
-        array_days.add("5");
-        array_days.add("6");
-        array_days.add("7");
-        array_days.add("8");
-        array_days.add("9");
-        array_days.add("10");
-
-        ArrayAdapter<String> arrayAdapter_days = new ArrayAdapter(this, android.R.layout.simple_list_item_1, array_days);
-        arrayAdapter_days.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        days.setAdapter(arrayAdapter_days);
-        days.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (!parent.getItemAtPosition(position).equals("Days")){
-                    String item = parent.getItemAtPosition(position).toString();
-                    //optional later remove it
-                    //Toast.makeText(parent.getContext(),"Selected: " +item, Toast.LENGTH_SHORT).show();
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        List<String> array_nights= new ArrayList<>();
-        array_nights.add(0,"Nights");
-        array_nights.add("1");
-        array_nights.add("2");
-        array_nights.add("3");
-        array_nights.add("4");
-        array_nights.add("5");
-        array_nights.add("6");
-        array_nights.add("7");
-        array_nights.add("8");
-        array_nights.add("9");
-        array_nights.add("10");
-
-        ArrayAdapter<String> arrayAdapter_nights = new ArrayAdapter(this, android.R.layout.simple_list_item_1, array_nights);
-        arrayAdapter_nights.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        nights.setAdapter(arrayAdapter_nights);
-        nights.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (!parent.getItemAtPosition(position).equals("Nights")){
-                    String item = parent.getItemAtPosition(position).toString();
-                    //optional later remove it
-                    //Toast.makeText(parent.getContext(),"Selected: " +item, Toast.LENGTH_SHORT).show();
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,SearchActivity.class);
+                startActivity(intent);
             }
         });*/
 
-
+        //getting search place from SEARCHACTIVITY
+        intent = getIntent();
+        String name = intent.getStringExtra("place");
+        mSearchField.setText(name);
                                                     // RECYCLE VIEW FOR GALLERY AND BROCHURE
 
         mGalleryClick.setOnClickListener(new View.OnClickListener() {
@@ -253,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                 imgIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 imgIntent.setAction(Intent.ACTION_GET_CONTENT);
 
-                startActivityForResult(Intent.createChooser(imgIntent,"Select Photo"), 5);
+                startActivityForResult(Intent.createChooser(imgIntent,"Select Photo"), GALLERY_SELECTION_REQUEST);
             }
         });
 
@@ -267,21 +194,11 @@ public class MainActivity extends AppCompatActivity {
                 imgIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 imgIntent.setAction(Intent.ACTION_GET_CONTENT);
 
-                startActivityForResult(Intent.createChooser(imgIntent,"Select Photo"), 6);
+                startActivityForResult(Intent.createChooser(imgIntent,"Select Photo"), BROCHURE_SELECTION_REQUEST);
             }
         });
 
-
-      /*  //for saving all the images
-        imageList = new ArrayList<>();
-        imageList.add(new Image(R.drawable.ic_launcher_background));
-        imageList.add(new Image(R.drawable.ic_launcher_background));
-        imageList.add(new Image(R.drawable.ic_launcher_background));
-        imageList.add(new Image(R.drawable.ic_launcher_background));
-        imageList.add(new Image(R.drawable.ic_launcher_background));
-        imageList.add(new Image(R.drawable.ic_launcher_background));*/
-
-        //use setOrientation(LinearLayoutManager.HORIZONTAL);
+                //use setOrientation(LinearLayoutManager.HORIZONTAL);
         LinearLayoutManager manager_brochure = new LinearLayoutManager(this);
         manager_brochure.setOrientation(LinearLayoutManager.HORIZONTAL);
         brochure.setLayoutManager(manager_brochure);
@@ -328,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                                     Intent imagereturnintent) {
         super.onActivityResult(requestcode, resultcode, imagereturnintent);
         switch (requestcode) {
-            case 5:
+            case GALLERY_SELECTION_REQUEST:
                 if (resultcode == RESULT_OK) {
                     ClipData selectedImages = imagereturnintent.getClipData();
                     if(selectedImages != null) {
@@ -340,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
                    loadImageViewGallery(galleryList);
                 }
                 break;
-            case 6:
+            case BROCHURE_SELECTION_REQUEST:
                 if(resultcode == RESULT_OK) {
                     ClipData selectedImages = imagereturnintent.getClipData();
                     if (selectedImages != null) {
@@ -354,18 +271,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void removeImage(int position,List<Uri> imageList) {
+    public void removeImage(int position, List<Uri> imageList, Boolean isBrochure) {
         imageList.remove(position);
-        loadImageViewGallery(imageList);
+        if(isBrochure) {
+            loadImageViewBrochure(imageList);
+        } else {
+            loadImageViewGallery(imageList);
+        }
     }
 
     private void loadImageViewGallery(List<Uri> imageList) {
-        AdapterClass adapter = new AdapterClass(this,imageList);
+        AdapterClass adapter = new AdapterClass(this,imageList, false);
         gallery.setAdapter(adapter);
     }
 
     private void loadImageViewBrochure(List<Uri> imageList) {
-        AdapterClass adapter = new AdapterClass(this,imageList);
+        AdapterClass adapter = new AdapterClass(this,imageList, true);
         brochure.setAdapter(adapter);
     }
 

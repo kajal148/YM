@@ -2,9 +2,13 @@ package com.kajal.ym;
 
 public class Places {
 
-    public String name, link, description;
+    public String name, latitude, longitude;
 
     public Places() {
+    }
+
+    public Places(String name) {
+        this.name = name;
     }
 
     public String getName() {
@@ -15,25 +19,7 @@ public class Places {
         this.name = name;
     }
 
-    public String getImage() {
-        return link;
-    }
-
-    public void setImage(String link) {
-        this.link = link;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Places(String name, String link, String description) {
         this.name = name;
-        this.link = link;
-        this.description = description;
     }
 }

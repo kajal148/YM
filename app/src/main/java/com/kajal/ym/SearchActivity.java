@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -50,6 +51,11 @@ public class SearchActivity extends AppCompatActivity {
         mSearchField = (EditText) findViewById(R.id.search_field);
         mSearchBtn = (ImageButton) findViewById(R.id.search_btn);
 
+        String searchTerm = getIntent().getStringExtra("searchTerm");
+        if(!searchTerm.isEmpty()) {
+            mSearchField.setText(searchTerm);
+            setAdapter(searchTerm);
+        }
         mRecyclerView = (RecyclerView) findViewById(R.id.result_list);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -60,19 +66,22 @@ public class SearchActivity extends AppCompatActivity {
         mSearchField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                Log.d("MyTag", "beforeTextChanged: starts");
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                Log.d("MyTag", "onTextChanged: starts");
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
-                if (!s.toString().isEmpty()){
+                Log.d("MyTag", "afterTextChanged: starts");
+                if (!s.toString().isEmpty() && s.toString().length()>=3){
                     setAdapter(s.toString());
+                } else {
+                    arrayList.clear();
+                    mRecyclerView.removeAllViews();
                 }
             }
         });
@@ -92,10 +101,12 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void setAdapter(final String searchString) {
-        databaseReference.child("Locations").addListenerForSingleValueEvent(new ValueEventListener() {
+        Log.d("MyTag", "setAdapter: starts");
+        databaseReference.child("Coordinates").addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("MyTag", "onDataChange: starts");
 
                 //for every new search
                 arrayList.clear();
@@ -104,10 +115,8 @@ public class SearchActivity extends AppCompatActivity {
                 int counter = 0;
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                     String name = snapshot.child("name").getValue(String.class);
-                    String link = snapshot.child("link").getValue(String.class);
-                    String description = snapshot.child("description").getValue(String.class);
-                    if (name.startsWith(searchString)){
-                        arrayList.add(new Places(name, link, description));
+                    if (name.toLowerCase().contains(searchString.toLowerCase())){
+                        arrayList.add(new Places(name));
                         counter++;
                     }
 
@@ -118,14 +127,16 @@ public class SearchActivity extends AppCompatActivity {
 
                 }
 
-                searchAdapter = new SearchAdapter(SearchActivity.this, arrayList, mSearchField,mRecyclerView);
-                mRecyclerView.setAdapter(searchAdapter);
+                if(arrayList.size() > 0) {
+                    searchAdapter = new SearchAdapter(SearchActivity.this, arrayList, mSearchField, mRecyclerView);
+                    mRecyclerView.setAdapter(searchAdapter);
+                }
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.d("MyTag", "onCancelled: starts");
             }
         });
     }

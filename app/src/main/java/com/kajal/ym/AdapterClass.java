@@ -20,10 +20,12 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.MyViewHolder
 
     private Context context;
     private List<Uri> imageList;
+    private Boolean isBrochure;
 
-    public AdapterClass(Context context, List<Uri> imageList) {
+    public AdapterClass(Context context, List<Uri> imageList, Boolean isBrochure) {
         this.context = context;
         this.imageList= imageList;
+        this.isBrochure = isBrochure;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -56,7 +58,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.MyViewHolder
         holder.removeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) context).removeImage(position,imageList);
+                ((MainActivity) context).removeImage(position,imageList, isBrochure);
             }
         });
 

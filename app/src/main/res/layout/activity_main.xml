@@ -148,6 +148,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
+            android:gravity="top"
             android:lines="8"
             android:layout_marginTop="10dp"
             android:maxLength="100"
@@ -188,6 +189,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
+            android:gravity="top"
             android:lines="8"
             android:layout_marginTop="10dp"
             android:background="@drawable/edittext_border"
@@ -226,6 +228,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/brochure"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"/>
+
                 <ImageView
                     android:id="@+id/icon_brochure"
                     android:layout_width="90dp"
@@ -233,12 +241,6 @@
                     android:background="#f1f1f1"
                     android:layout_marginTop="5dp"
                     android:src="@drawable/add_icon" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/brochure"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="none"/>
 
             </LinearLayout>
 
@@ -271,6 +273,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/gallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"/>
+
                 <ImageView
                     android:id="@+id/icon_gallery"
                     android:layout_width="90dp"
@@ -279,11 +287,6 @@
                     android:layout_marginTop="5dp"
                     android:src="@drawable/add_icon"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/gallery"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="none"/>
             </LinearLayout>
 
         </LinearLayout>
