@@ -207,6 +207,9 @@ public class MainActivity extends AppCompatActivity {
         manager_gallery.setOrientation(LinearLayoutManager.HORIZONTAL);
         gallery.setLayoutManager(manager_gallery);
 
+        loadImageViewBrochure(brochureList);
+        loadImageViewGallery(galleryList);
+
 
                         //RECYCLE VIEW FOR ADDITIONAL SERVICES
         
@@ -281,13 +284,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadImageViewGallery(List<Uri> imageList) {
-        AdapterClass adapter = new AdapterClass(this,imageList, false);
-        gallery.setAdapter(adapter);
+        if(imageList != null && imageList.size()>0) {
+            AdapterClass adapter = new AdapterClass(this,imageList, false);
+            gallery.setAdapter(adapter);
+          /*  findViewById(R.id.icon_gallery).setVisibility(View.GONE);
+            findViewById(R.id.icon_gallery_aside).setVisibility(View.VISIBLE);*/
+        }
     }
 
     private void loadImageViewBrochure(List<Uri> imageList) {
-        AdapterClass adapter = new AdapterClass(this,imageList, true);
-        brochure.setAdapter(adapter);
+        if(imageList != null && imageList.size()>0) {
+            AdapterClass adapter = new AdapterClass(this, imageList, true);
+            brochure.setAdapter(adapter);
+            /*findViewById(R.id.icon_brochure).setVisibility(View.GONE);
+            findViewById(R.id.icon_brochure_aside).setVisibility(View.VISIBLE);*/
+        }
+
     }
 
 

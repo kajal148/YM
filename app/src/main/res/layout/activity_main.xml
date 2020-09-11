@@ -210,7 +210,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/text_brochure"
@@ -221,18 +222,21 @@
                     android:textColor="@color/colorAccent"
                     android:text="Brochure"/>
 
+                <ImageView
+                    android:id="@+id/icon_brochure_aside"
+                    android:layout_width="wrap_content"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="2dp"
+                    android:layout_marginLeft="3dp"
+                    android:background="@drawable/add_icon" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/brochure"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="none"/>
 
                 <ImageView
                     android:id="@+id/icon_brochure"
@@ -242,12 +246,19 @@
                     android:layout_marginTop="5dp"
                     android:src="@drawable/add_icon" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/brochure"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"/>
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/text_gallery"
@@ -258,26 +269,20 @@
                     android:textColor="@color/colorAccent"
                     android:text="Gallery"/>
 
-                <!--<ImageView
-                    android:id="@+id/icon_gallery"
+                <ImageView
+                    android:id="@+id/icon_gallery_aside"
                     android:layout_width="24dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
                     android:layout_marginLeft="3dp"
-                    android:background="@drawable/add_icon" />-->
+                    android:background="@drawable/add_icon" />
 
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/gallery"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="none"/>
 
                 <ImageView
                     android:id="@+id/icon_gallery"
@@ -286,6 +291,12 @@
                     android:background="#f1f1f1"
                     android:layout_marginTop="5dp"
                     android:src="@drawable/add_icon"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/gallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"/>
 
             </LinearLayout>
 
