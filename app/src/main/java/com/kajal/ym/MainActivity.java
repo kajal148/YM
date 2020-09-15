@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -175,8 +176,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                Intent imgIntent = new Intent();
-                imgIntent.setType("image/*");
+                Intent imgIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                imgIntent.setType("image/* video/*");
                 imgIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 imgIntent.setAction(Intent.ACTION_GET_CONTENT);
 
@@ -188,9 +189,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
-                Intent imgIntent = new Intent();
-                imgIntent.setType("image/*");
+                Intent imgIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                imgIntent.setType("image/* video/*");
                 imgIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 imgIntent.setAction(Intent.ACTION_GET_CONTENT);
 
@@ -275,7 +275,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void removeImage(int position, List<Uri> imageList, Boolean isBrochure) {
-        imageList.remove(position);
+
+        if(imageList != null){
+            imageList.remove(position);
+        }
         if(isBrochure) {
             loadImageViewBrochure(imageList);
         } else {
