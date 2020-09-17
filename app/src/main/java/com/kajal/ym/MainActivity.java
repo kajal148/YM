@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     EditText mCountEditText;
 
     //Spinner days,nights;
-    String[] days ={"1","2","3","4","5","6","7","8","9","10"};
+    String[] days ={"1","2","3","4","5","6","7"};
     String[] nights ={"1","2","3","4","5","6","7","8","9","10"};
 
     RecyclerView gallery,brochure;
