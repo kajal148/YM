@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
     public final int GALLERY_SELECTION_REQUEST=5;
     public final int BROCHURE_SELECTION_REQUEST=6;
 
+    Button mSubmit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -241,6 +243,17 @@ public class MainActivity extends AppCompatActivity {
 
         ListAdapterClass category_adapter = new ListAdapterClass(this,mCategoryList);
         mCategoryRecyclerView.setAdapter(category_adapter);
+
+        //SUBMIT BUTTON
+
+        mSubmit = findViewById(R.id.btn_submit);
+        mSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TravelDetails.class);
+                startActivity(intent);
+            }
+        });
         
     }
 
